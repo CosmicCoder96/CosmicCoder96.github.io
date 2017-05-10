@@ -17,8 +17,8 @@ You read the Documentation. There is an error. THAT IS NOT A BIG DEAL!! Instead 
 
 Now once you have set up the project, you are halfway there. Yes, half the people give up midway while setting up the project. No matter how dumb the question, ask it. That's what the internet is for. The people in the organisation will answer your queries to the best of their ability. 
 
-Now the project is set. Only thing remains is <b> Where to begin? </b>. Though every organisation has different policies, the crux is more or less the same. If they are on github, they will have issues raised, and people usually claim them before working. So you go to the issues list and choose one you like the best and think you have the skills to solve it. Claim it (comment or inform them that you want to work on this). 
-Now a beginner's perspective's 101 : <b> No Issue is too small to do </b> You have to begin somewhere. Edit the documentation. Fix the margins. Never ever think, that such a small contribution won't make a difference. Becasuse it does.
+Now the project is set. The only  thing which  remains is <b> Where to begin? </b>. Though every organisation has different policies, the crux is more or less the same. If they are on github, they will have issues raised, and people usually claim them before working. So you go to the issues list and choose one you like the best and think you have the skills to solve it. Claim it (comment or inform them that you want to work on this). 
+Now a beginner's perspective' 101 : <b>  Issue is too small </b> You have to begin somewhere. Edit the documentation. Fix the margins. Never ever think, that such a small contribution won't make a difference. Becasuse it does.
 
 This brings me to my first ever issue which I solved. It was a simple css bug.  Some icons were not aligned where they should have been, and I aligned them.
 I wrote exactly seven lines of code to solve it. Out of which 2 were angular braces :+1:
@@ -37,12 +37,3 @@ Make your first commit and the rest will be history. Those seven lines of basic 
 
 PS: The [issue] [issue-ow] I solved still exists and so does the [pull request] [PR]. 
 If you want to see how easy it is check them out. 
-
-To add new posts, simply add a file in the `_posts` directory that follows the convention `YYYY-MM-DD-name-of-post.ext` and includes the necessary front matter. Take a look at the source for this post to get an idea about how it works.
-
-
-
-Check out the [Jekyll docs][jekyll-docs] for more info on how to get the most out of Jekyll. File all bugs/feature requests at [Jekyll’s GitHub repo][jekyll-gh]. If you have questions, you can ask them on [Jekyll Talk][jekyll-talk].
-
-[issue-ow]: https://github.com/fossasia/open-event-webapp/issues/945
-[PR]:   https://github.com/fossasia/open-event-webapp/pull/949

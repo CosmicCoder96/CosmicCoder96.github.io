@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  emberJS - when is it the right choice
-date:   2017-05-09 03:33:34 +0530
+title:  ember.js - when is it the right choice
+date:   2017-05-16 03:33:34 +0530
 ---
 
 With the plethora of java script frameworks available, it gets really diffciult to decide, which one is actually the right choice for a project, especially for the not so experienced developers who are just starting out. Every month a new framework arrives, and the exisiting ones keep activiely updating themselves often.  This article covers one such framework **emberJS**  and highlights it's advantages over others and with an example demostorates it's usefulness.

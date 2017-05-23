@@ -1,11 +1,14 @@
 ---
 layout: post
-title:  Passing environment variables to ember application via ember-cli-dotenv
+title:  Creating a notification dropdown in semantic UI
 
 date:   2017-05-16 03:33:34 +0530
 ---
 
-Semantic UI is a modern development framework which helps build responsive and aesthetically beautiful layouts. While it is a really powerful framework in itself, it additionally offers seamless integrations with some of the other  open source frameworks including ember js.
+Semantic UI is a modern front-end development framework which helps build responsive and aesthetically beautiful layouts. It comes pack with highly responisve componenets to cater to all front end needs, and provides excellent documentation for them. 
+The web of front end development is so large, it is never possible to cover all the possible requirements of a developer with pre built components.
+
+In this article we are going to build a notification dropdown from scratch.
 
 Open event front end is a project of fossasia organisation, which was created with the aim of decoupling the front end and the back end for the open event orga server. It is primarily based on ember JS and uses semantic UI for 
 Here we will be making a nested route 

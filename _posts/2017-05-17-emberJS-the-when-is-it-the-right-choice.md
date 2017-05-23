@@ -1,92 +1,162 @@
 ---
 layout: post
-title:  ember.js - when is it the right choice
+title:  Creating nested routes in ember JS and navigating them with tabs via semantic UI - ember integration
+
 date:   2017-05-16 03:33:34 +0530
 ---
 
-With the plethora of java script frameworks available, it gets really diffciult to decide, which one is actually the right choice for a project, especially for the not so experienced developers who are just starting out. Every month a new framework arrives, and the exisiting ones keep activiely updating themselves often.  This article covers one such framework **emberJS**  and highlights it's advantages over others and with an example demostorates it's usefulness.
+Semantic UI is a modern development framework which helps build responsive and aesthetically beautiful layouts. While it is a really powerful framework in itself, it additionally offers seamless integrations with some of the other  open source frameworks including ember js.
 
-<figure>
-	<img src="/images/ember-logo.png" style="width:300px">
-</figure>
+Open event front end is a project of fossasia organisation, which was created with the aim of decoupling the front end and the back end for the open event orga server. It is primarily based on ember JS and uses semantic UI for 
+Here we will be making a nested route 
+`/events/` with 
+`/events/live/`, `events/draft`, `events/past` , `events/import` as it's subroutes.
 
-EmberJS is an open-source JavaScript application framework for creating single-page client-side web applications, which uses Model-View-Controller (MVC) pattern. The framework provides universal data binding together and URL-driven approach for structuring different applications with the focus on scalability.
-
-
-<h2>Why is Ember JS great?</h2>
-<h3> Convention over configuration - It does all the heavy lifitng. </h3>
-Ember JS  mandates best practices, enforces naming conventions and generates the boiler plate code for the various components and routes itself. This has advantages other than uniformity. It is easier for other developers to join the project and start working right away, instead of spending hours on existing codebase to understand it, as the core structure of all ember apps is similar. To get an ember app started with the basic route, user doesn't has to do much, ember does all the heavy lifting.
+To get started with it, we simply use the ember CLI to generate the routes
 {% highlight css %}
-	$ ember new my-app
-	$ ember server
+$ ember generate route events
 {% endhighlight %}
-After installing this is all it takes to create your app.
 
-<h3>Ember CLI </h3>
-Similar to Ruby on Rails, ember has a powerful CLI. It can be used to generate boiler plate codes for components, routes, tests and much more. Testing is possible via the CLI as well.
+Then we go on to generate the successive sub routes as follows
 {% highlight css %}
-$ ember generate component my-component
-$ ember generate route myRoute
-$ ember test
+$ ember generate route events/live
+$ ember generate route events/past
+$ ember generate route events/draft
+$ ember generate route events/import
 {% endhighlight %}
-These are some of the examples which show how easy it is to manage the code via the emebr CLI.
-<h3>Tests.Tests.Tests.</h3>
-Ember JS makes it incerdibly easy to use test-first approach. Integration tests, acceptance tests, and unit tests are in built into the framework. And can be geerated from the CLI itself, the documenration on them is well written and it's really easy to customise them.
-{% highlight css %}
-$ ember g acceptance-test your test
+
+The `router.js` file should be looking like this now.
+{% highlight java script %}
+this.route('events', function() {
+    this.route('live');
+    this.route('draft');
+    this.route('past');
+    this.route('import');
+  });
 {% endhighlight %}
-This is all it takes to set up the entire boiler plate for the test, which you can customise
-<h3>Excellent documentation and guides</h3>
-Ember JS has one of the best possible documentations available for a framework. The guides are a breeze to follow. It is highly recommended that, if starting out on ember, make the demo app from the official ember Guides. That should be enough to get familiar with ember.
 
-<h3> Ember Data </h3>
-It sports one of the best implemented API data fetching capabilities. Fetching and using data in your app is a breeze.
-<h3>Where is it being used?</h3>
-Ember has a huge community and is being used all around. This article focuses on it's salien features via the example of Open Event Orga Server project of FOSSASIA. The unorga server is primarily based on FLASK with jinja2 being used for rendering templates. At the small scale, it was efficient to have both the front end and backend of the server together, but as it grew larger in size with more refined features it became tough to keep track of all the minor edits and customizations of the front end and the code started to become complex in nature.
-And that gave birth to the new project Open Event Front End which is based on ember JS which wil be covered in the next week.
+This means that our routes and sub routes are in place.
+Since we used the emebr CLI to generate these routes, the template files for them would have generated automatically.
 
-With the orga server being converted into a fully functional API, the back end and the front end will be decoupled therby making the code much cleaner and easy to understand for the other developers that may wish to contribute in the future.
-Also, since the new front end is being designed with ember JS, it's UI will have a lot of enhanced features and enforcing uniformity acorss the design would be much easier with the help of components in ember.
-For instance, instead of making multiple copies of the same code, components are used to avoid repition and ensure uniformity (change in one place will refelct everywhere)
+Next, we go to the template file of events/ route
+which is at `templates/events.hbs`
+And write the following code to create a menu and use ember integration of semantic UI `link-to` to link the tabs of the menu with the correspondinf correct route. It will take care of selecting the appropriate data for the corresponding route and display it in the correct tab via the outlet.
+
 {% highlight html %}
 {% raw %}
-<div class="ui fluid vertical {{unless device.isMobile 'pointing'}} menu">
-  <a class="item {{if (eq session.currentRouteName 'public.index') 'active'}}" href="{{href-to 'public.index'}}">
-    {{t 'Info'\}}
-  </a>
-  <a class="item" href="{{href-to 'public.index'}}#tickets">
-    {{t 'Tickets'}}
-  </a>
-  <a class="item" href="{{href-to 'public.index'}}#speakers">
-    {{t 'Speakers'}}
-  </a>
-  {{#link-to 'public.sessions' class='item'}}
-    {{t 'Sessions'}}
-  {{/link-to}}
-  {{#link-to 'public.schedule' class='item'}}
-    {{t 'Schedule'}}
-  {{/link-to}}
-  {{#link-to 'public.cfs' class='item'}}
-    {{t 'Call for Speakers'}}
-  {{/link-to}}
-  <a class="item" href="{{href-to 'public.index'}}#getting-here">
-    {{t 'Getting here'}}
-  </a>
+<div class="row">
+  <div class="sixteen wide column">
+    <div class="ui fluid pointing secondary menu">
+      {{#link-to 'events.live' class='item'}}
+        {{t 'Live'}}
+      {{/link-to}}
+      {{#link-to 'events.draft' class='item'}}
+        {{t 'Draft'}}
+      {{/link-to}}
+      {{#link-to 'events.past' class='item'}}
+        {{t 'Past'}}
+      {{/link-to}}
+      {{#link-to 'events.import' class='item'}}
+        {{t 'Import'}}
+      {{/link-to}}
+    </div>
+  </div>
+</div>
+<div class="ui segment">
+  {{outlet}}
 </div>
 {% endraw %}
 {% endhighlight %}
-This is a perfect example of the power of components in ember, this is a component which renders differently based on the screen size, therby reducing the redundancy of writing separate components for the same.
 
-Ember is a step forward towards the future of the web. With the help of Babel.js it is possible to write ES6/2015 syntax and not worry about it's compatibility with the browsers. It will take care of it.
+So finally, we start filling in the data for each of these routes. Let's fill some dummy data at 
+`templates/events/live.hbs`
+{% highlight html %}
+{% raw %}
+<div class="row">
+  <div class="sixteen wide column">
+    <table class="ui tablet stackable very basic table">
+      <thead>
+        <tr>
+          <th>{{t 'Name'}}</th>
+          <th>{{t 'Date'}}</th>
+          <th>{{t 'Roles'}}</th>
+          <th>{{t 'Sessions'}}</th>
+          <th>{{t 'Speakers'}}</th>
+          <th>{{t 'Tickets'}}</th>
+          <th>{{t 'Public URL'}}</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <div class="ui header weight-400">
+              <img src="http://placehold.it/200x200" alt="Event logo" class="ui image">
+              Sample Event
+            </div>
+          </td>
+          <td>
+            March 18, 2016 - 09:30 AM
+            <br>(to)<br>
+            March 20, 2016 - 05:30 PM
+          </td>
+          <td>
+            <div class="ui ordered list">
+              <div class="item">sample@gmail.com ({{t 'Organizer'}})</div>
+              <div class="item">sample2@gmail.com ({{t 'Manager'}})</div>
+            </div>
+          </td>
+          <td>
+            <div class="ui list">
+              <div class="item">{{t 'Drafts'}}: 0</div>
+              <div class="item">{{t 'Submitted'}}: 0</div>
+              <div class="item">{{t 'Accepted'}}: 0</div>
+              <div class="item">{{t 'Confirmed'}}: 0</div>
+              <div class="item">{{t 'Pending'}}: 0</div>
+              <div class="item">{{t 'Rejected'}}: 0</div>
+            </div>
+          </td>
+          <td>
+            2
+          </td>
+          <td>
+            <div class="ui bulleted list">
+              <div class="item">{{t 'Premium'}} (12/100)</div>
+              <div class="item">{{t 'VIP'}} (10/15)</div>
+              <div class="item">{{t 'Normal'}} (100/200)</div>
+              <div class="item">{{t 'Free'}} (100/500)</div>
+            </div>
+          </td>
+          <td>
+            <div class="ui link list">
+              <a class="item" target="_blank" rel="noopener" href="http://nextgen.eventyay.com/e/ecc2001a">
+                http://nextgen.eventyay.com/e/ecc2001a
+              </a>
+            </div>
+          </td>
+          <td class="center aligned">
+            <div class="ui vertical compact basic buttons">
+              {{#ui-popup content=(t 'Edit event details') class='ui icon button'}}
+                <i class="edit icon"></i>
+              {{/ui-popup}}
+              {{#ui-popup content=(t 'View event details') class='ui icon button'}}
+                <i class="unhide icon"></i>
+              {{/ui-popup}}
+              {{#ui-popup content=(t 'Delete event') class='ui icon button'}}
+                <i class="trash outline icon"></i>
+              {{/ui-popup}}
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
 
-{% highlight java script %}
-actions: {
-    submit() {
-      this.onValid(() => {
-
-      });
-    }
-  }
+{% endraw %}
 {% endhighlight %}
 
-This is perfectly valid and will be compatible with majority of the supported browsers.
+Similarly we can fill the required data for each of the routes.
+
+And this is it, our nested route is ready.
+Here are some screenshots.

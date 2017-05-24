@@ -9,157 +9,113 @@ Semantic UI is a modern front-end development framework which helps build respon
 The web of front end development is so large, it is never possible to cover all the possible requirements of a developer with pre built components.
 
 In this article we are going to build a notification dropdown from scratch.
-
-Open event front end is a project of fossasia organisation, which was created with the aim of decoupling the front end and the back end for the open event orga server. It is primarily based on ember JS and uses semantic UI for 
-Here we will be making a nested route 
-`/events/` with 
-`/events/live/`, `events/draft`, `events/past` , `events/import` as it's subroutes.
-
-To get started with it, we simply use the ember CLI to generate the routes
+So we begin by generating a new component via `ember CLI` 
 {% highlight css %}
-$ ember generate route events
+$ ember generate component notification-dropdown 
 {% endhighlight %}
 
-Then we go on to generate the successive sub routes as follows
-{% highlight css %}
-$ ember generate route events/live
-$ ember generate route events/past
-$ ember generate route events/draft
-$ ember generate route events/import
-{% endhighlight %}
+This should generate the boiler plate code for our component, with the template file located at: 
+`templates/components/notification-dropdown.hbs`
+It is assumed that you already have a basic ember app with atleast a navbar set up. The notification drop down will be integrated with the navbar as a separate component.
 
-The `router.js` file should be looking like this now.
-{% highlight java script %}
-this.route('events', function() {
-    this.route('live');
-    this.route('draft');
-    this.route('past');
-    this.route('import');
-  });
-{% endhighlight %}
+We will use the `popup` component of semantic ui as the ubderlying structure of our dropdown. 
+I have used some dummy data stored in a separate file, you can use any dummy data you wish, either by directly hardcoding it or importing it from a js file stored somewhere else.
 
-This means that our routes and sub routes are in place.
-Since we used the emebr CLI to generate these routes, the template files for them would have generated automatically.
+We will make use of the `floating label` of semantic UI to display the number of unread notifications.
 
-Next, we go to the template file of events/ route
-which is at `templates/events.hbs`
-And write the following code to create a menu and use ember integration of semantic UI `link-to` to link the tabs of the menu with the correspondinf correct route. It will take care of selecting the appropriate data for the corresponding route and display it in the correct tab via the outlet.
 
 {% highlight html %}
 {% raw %}
-<div class="row">
-  <div class="sixteen wide column">
-    <div class="ui fluid pointing secondary menu">
-      {{#link-to 'events.live' class='item'}}
-        {{t 'Live'}}
-      {{/link-to}}
-      {{#link-to 'events.draft' class='item'}}
-        {{t 'Draft'}}
-      {{/link-to}}
-      {{#link-to 'events.past' class='item'}}
-        {{t 'Past'}}
-      {{/link-to}}
-      {{#link-to 'events.import' class='item'}}
-        {{t 'Import'}}
-      {{/link-to}}
+  <i class="mail outline icon">
+</i>
+<div class="floating ui teal circular mini label">{{notifications.length}}</div>
+<div class="ui wide notification popup bottom left transition ">
+  <div class="ui basic inverted horizontal segments">
+    <div class="ui basic left aligned segment weight-800">
+      <p>{{t 'Notifications'}}</p>
+    </div>
+    <div class="ui basic right aligned segment weight-400">
+      <a href="#">{{t 'Mark all as Read'}}</a>
     </div>
   </div>
-</div>
-<div class="ui segment">
-  {{outlet}}
-</div>
-{% endraw %}
-{% endhighlight %}
-
-So finally, we start filling in the data for each of these routes. Let's fill some dummy data at 
-`templates/events/live.hbs`
-{% highlight html %}
-{% raw %}
-<div class="row">
-  <div class="sixteen wide column">
-    <table class="ui tablet stackable very basic table">
-      <thead>
-        <tr>
-          <th>{{t 'Name'}}</th>
-          <th>{{t 'Date'}}</th>
-          <th>{{t 'Roles'}}</th>
-          <th>{{t 'Sessions'}}</th>
-          <th>{{t 'Speakers'}}</th>
-          <th>{{t 'Tickets'}}</th>
-          <th>{{t 'Public URL'}}</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-            <div class="ui header weight-400">
-              <img src="http://placehold.it/200x200" alt="Event logo" class="ui image">
-              Sample Event
-            </div>
-          </td>
-          <td>
-            March 18, 2016 - 09:30 AM
-            <br>(to)<br>
-            March 20, 2016 - 05:30 PM
-          </td>
-          <td>
-            <div class="ui ordered list">
-              <div class="item">sample@gmail.com ({{t 'Organizer'}})</div>
-              <div class="item">sample2@gmail.com ({{t 'Manager'}})</div>
-            </div>
-          </td>
-          <td>
-            <div class="ui list">
-              <div class="item">{{t 'Drafts'}}: 0</div>
-              <div class="item">{{t 'Submitted'}}: 0</div>
-              <div class="item">{{t 'Accepted'}}: 0</div>
-              <div class="item">{{t 'Confirmed'}}: 0</div>
-              <div class="item">{{t 'Pending'}}: 0</div>
-              <div class="item">{{t 'Rejected'}}: 0</div>
-            </div>
-          </td>
-          <td>
-            2
-          </td>
-          <td>
-            <div class="ui bulleted list">
-              <div class="item">{{t 'Premium'}} (12/100)</div>
-              <div class="item">{{t 'VIP'}} (10/15)</div>
-              <div class="item">{{t 'Normal'}} (100/200)</div>
-              <div class="item">{{t 'Free'}} (100/500)</div>
-            </div>
-          </td>
-          <td>
-            <div class="ui link list">
-              <a class="item" target="_blank" rel="noopener" href="http://nextgen.eventyay.com/e/ecc2001a">
-                http://nextgen.eventyay.com/e/ecc2001a
-              </a>
-            </div>
-          </td>
-          <td class="center aligned">
-            <div class="ui vertical compact basic buttons">
-              {{#ui-popup content=(t 'Edit event details') class='ui icon button'}}
-                <i class="edit icon"></i>
-              {{/ui-popup}}
-              {{#ui-popup content=(t 'View event details') class='ui icon button'}}
-                <i class="unhide icon"></i>
-              {{/ui-popup}}
-              {{#ui-popup content=(t 'Delete event') class='ui icon button'}}
-                <i class="trash outline icon"></i>
-              {{/ui-popup}}
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+  <div class="ui fluid link celled selection list">
+    {{#each notifications as |notification|}}
+      <div class="item">
+        <div class="header">
+          {{notification.title}}
+        </div>
+        <div class="content weight-600">
+          {{notification.description}}
+        </div>
+        <div class="left floated content">
+          {{moment-from-now notification.createdAt}}
+        </div>
+      </div>
+    {{/each}}
   </div>
 </div>
 
 {% endraw %}
 {% endhighlight %}
 
-Similarly we can fill the required data for each of the routes.
+Now the next biggest challenge is to make the popup scrollable, they are not scrollable by default and may result in an error if their height exceeds that of the view port. So we apply some styling now.
 
-And this is it, our nested route is ready.
-Here are some screenshots.
+{% highlight css %}
+.notification.item {
+  margin: 0 !important;
+  .label {
+    top: 1em;
+    padding: 0.2em;
+    margin: 0 0 0 -3.2em !important;
+
+  }
+}
+
+.ui.notification.popup {
+  padding: 2px;
+  .list {
+    width: auto;
+    max-height: 50vh;
+    overflow: hidden;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+    .header {
+      margin-bottom:5px;
+    }
+    .content {
+      margin-bottom:2px;
+    }
+  }
+  .segments {
+    margin: 5px;
+  }
+  .segment {
+    border: none;
+    padding: 0 2px;
+    margin: 0;
+  }
+}
+
+{% endhighlight %}
+
+All of this takes care of the styling.
+Next, we need to take care of initialising the notification popup. For this we need to go to the navbar component as it is the one who calls the notification dropdown component. And add this to it:
+
+{% highlight java script %}
+didInsertElement() {
+    this._super.call(this);
+    this.$('.notification.item').popup({
+      popup : '.popup',
+      on    : 'click'
+    });
+  },
+
+  willDestroyElement() {
+    this._super.call(this);
+    this.$('.notification.item').popup('destroy');
+  }
+{% endhighlight %}
+
+This will take care of cleaning up as well.
+Now, you should have the notification drop down up and running !! 

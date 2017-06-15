@@ -11,7 +11,7 @@ The `event-card` component on Open-event-front end is one such component. It is 
 Originally the component was used to display events in the card format on the public page.
 And this was the code :
 
-% highlight html %}
+{% highlight html %}
 {% raw %}
 <div class="ui fluid event card">
   <a class="image" href="{{href-to 'public' event.identifier}}">
@@ -48,6 +48,8 @@ Next we modify it in such a way that it is suitable to be displayed on the `expl
 How do we determine which version should be rendered when, so we pass an additional parameter while calling the component : `isWide` 
 
 And the code would be something like this with `isWide`taken into account: 
+{% highlight html %}
+{% raw %}
 <div class="{{if isWide 'event wide ui grid row'}}">
  
 <div class="ui fluid event card">
@@ -83,9 +85,9 @@ And the code would be something like this with `isWide`taken into account:
 
 
 Next What we are going to do is, modify the component  to become yieldable. So that they can also be used to display the tickets of a user! 
-`{{raw}} {{yield}} {{/raw}` allows code outside the component to be rendered inside it. 
+`{% raw } {{yield}} {% endraw %}` allows code outside the component to be rendered inside it. 
 
-Let's make a change so that, if the event card component is rendered on the my tickets page, then instead of hashtags it should display the ticket details. Which we will conveniently provide to the component externally (via `{{raw}} {{yield}} {{/raw}`)
+Let's make a change so that, if the event card component is rendered on the my tickets page, then instead of hashtags it should display the ticket details. Which we will conveniently provide to the component externally (via `{% raw %} {{yield}} {% endraw %}`)
 Next we need to determine which version of the component should be rendered when?
 The `hasBlock` helper enables us to do just that.
 So the final code should look something just like this ;) 

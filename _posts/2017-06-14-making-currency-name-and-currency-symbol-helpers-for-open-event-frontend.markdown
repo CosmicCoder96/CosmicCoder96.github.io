@@ -106,4 +106,4 @@ export default Helper.helper(currencySymbol);
 I
 Now all we need to do use them is `{% raw %}{{currency-name 'USD'}}{% endraw %}`
 and `{% raw%}{{currency-symbol 'USD'}}{% endraw %}`
-to get the corrsepondong currency name and symbol.
+to get the corrseponding currency name and symbol.

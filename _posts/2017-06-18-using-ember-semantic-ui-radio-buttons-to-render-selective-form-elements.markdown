@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Using ember semantic ui radio buttons to render form elements selectively.
+title:  Using ember semantic UI radio buttons to render form elements selectively.
 
 date:   2017-06-18 05:33:34 +0530
 ---
@@ -21,7 +21,7 @@ So first let's make the basic form where in all the fields are visible.
 Now let's learn how to make use of the `mut` action on the radio buttons. 
 What it allows us to do is pass a parameter while calling it, and that parameter name is shared by all the radio buttons belonging to a particular group of radio buttons.
 And what that action does is, store the name of the currently selected radio button in it. So we can easily keep track of which button has been selected and use that variable in selective rendering of templates.
-The action is triggered whenever the radio button's propery changes and the trigger is aptly called `onChange`.
+The action is triggered whenever the radio button's property changes and the trigger is aptly called `onChange`.
 So essentially the syntax boils down to this : 
 
 

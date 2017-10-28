@@ -1,3 +1,8 @@
+# About Me
+
+I'm the Technical Secretary of GeekHaven, Technical Society - IIIT Allahabad. I'm a web developer at core, exploring new technologies to unfold the power of the web is his passion. I may be reached at: 8319473031
+
+
 # Balzac
 
 This is forked from [minimal mistakes](http://mademistakes.com). I needed some type of framework to build off as I have no experience with Jekyll. Michael set up an awesome dev environment for this which really helped speed up my progress. He also already wrote up an incredibly comprehensive readme.md so I basically copied all of it and replaced what was necessary. The design itself is my own and I cannot let you sell this or tweak the design for resale, unless I you [contact me](mailto:cole@coletownsend.com).

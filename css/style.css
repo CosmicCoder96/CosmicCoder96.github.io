@@ -358,7 +358,16 @@ body {
 	max-width: 25em;
 }
 
+#about .global-button.rotated {
+padding-left: 0.6em;
+}
+
 #about:hover .global-button.rotated::before {
+	-webkit-animation: move_arrow_v 2500ms ease-in infinite forwards;
+	        animation: move_arrow_v 2500ms ease-in infinite forwards;
+}
+
+.resume:hover .global-button.rotated::before {
 	-webkit-animation: move_arrow_v 2500ms ease-in infinite forwards;
 	        animation: move_arrow_v 2500ms ease-in infinite forwards;
 }

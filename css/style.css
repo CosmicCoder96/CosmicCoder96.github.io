@@ -716,3 +716,8 @@ footer > #credit {
 .credit-link:hover {
   color: #51e6a6;
 }
+
+.resume {
+	margin-top: 2em;
+	margin-bottom: 2em;
+}
